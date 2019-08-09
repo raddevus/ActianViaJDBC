@@ -14,28 +14,20 @@ public class Modify {
     public static void main(String[] args) {
         try{
             Connection conn = null;
-            String tableName = "";
-            
-
-            try {
-                tableName = args[0];
-            }
-            catch (ArrayIndexOutOfBoundsException noArgsEx){
-                tableName = "student";
-            }
+            String tableName = "student";
 
             conn = DriverManager.getConnection(DB_URL, USER, PWD);
             Statement stmt = conn.createStatement();
             
-            String updateQuery = String.format("UPDATE Student set scholarship_amount = 1000 where cumulative_GPA >= 3.5 and major = 'Music' and scholarship_amount = 0" , tableName);
+            String updateQuery = "UPDATE Student set scholarship_amount = 1000 where cumulative_GPA >= 3.5 and major = 'Music' and scholarship_amount = 0";
             int recordsUpdated = stmt.executeUpdate(updateQuery);
             out.println(String.format("recordsUpdated : %s",recordsUpdated));
+            out.println("########### TABLE INFO ############");
             if (recordsUpdated > 0){
-                out.println("########### TABLE INFO ############");
                 out.println(String.format("Updated %s rows in the %s table.", recordsUpdated, tableName));
             }
             
-            String selectQuery = String.format("SELECT * FROM %s",tableName);
+            String selectQuery = String.format("SELECT top(1)* FROM %s where cumulative_GPA >= 3.5 and major = 'Music' and scholarship_amount = 1000",tableName);
             ResultSet rs = stmt.executeQuery(selectQuery);
             
             if (rs.next()){
