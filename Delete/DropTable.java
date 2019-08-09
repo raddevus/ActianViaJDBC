@@ -14,16 +14,21 @@ public class DropTable {
     public static void main(String[] args) {
         try{
             Connection conn = null;
-            String tableName = "student";
+            String tableName = "DeleteTest";
 
             conn = DriverManager.getConnection(DB_URL, USER, PWD);
             Statement stmt = conn.createStatement();
 
-            String dropQuery = "drop table test";
+            String addTable = "CREATE TABLE DeleteTest(first CHAR(50), second CHAR(50), third CHAR(50))";
+            stmt.execute(addTable);
+            out.println("Added DeleteTest table.");
+            
+            String dropQuery = "drop table DeleteTest";
             stmt.execute(dropQuery);
+            out.println("DROPPED DeleteTest table.");
 
             // ### Attempts to select the records to determine if they have been deleted.
-            String selectQuery = "select * from room";
+            String selectQuery = "select * from DeleteTest";
             ResultSet rs = stmt.executeQuery(selectQuery);
             
             if (rs.next()){
@@ -37,11 +42,7 @@ public class DropTable {
                     out.println(String.format("%s : %s", columnName, rs.getString(columnName)));
                 }
             }
-            else
-            {
-                out.println("The students have been deleted.");
-            }
-            
+           
             rs.close();
             stmt.close();
             out.println("Closing connection to DB.");
