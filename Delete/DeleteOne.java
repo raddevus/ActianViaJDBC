@@ -40,6 +40,7 @@ public class DeleteOne {
                     out.println(String.format("%s : %s", columnName, rs.getString(columnName)));
                 }
             }
+            else
             {
                 out.println("The student record with an ID of 777 has been deleted.");
             }
