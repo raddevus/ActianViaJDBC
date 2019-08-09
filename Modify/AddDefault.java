@@ -23,9 +23,6 @@ public class AddDefault {
             boolean retVal = stmt.execute(alterQuery);
             out.println(String.format("retVal : %s",retVal));
             out.println("########### TABLE INFO ############");
-            // if (recordsUpdated > 0){
-            //     out.println(String.format("Updated %s rows in the %s table.", recordsUpdated, tableName));
-            // }
             
             String insertQuery = "Insert into Student (ID, MAJOR, TUITION_ID) values ('555', 'Music', 3)";
             retVal = stmt.execute(insertQuery);
